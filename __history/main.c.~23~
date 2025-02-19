@@ -1,0 +1,55 @@
+#include <main.h>
+
+#define LCD_RS_PIN       PIN_E0
+#define LCD_RW_PIN       PIN_E1
+#define LCD_ENABLE_PIN   PIN_E2
+
+#define LCD_DATA4        PIN_D4
+#define LCD_DATA5        PIN_D5
+#define LCD_DATA6        PIN_D6
+#define LCD_DATA7        PIN_D7 
+#include <lcd.c>
+
+#define TRIGGER   PIN_C0
+#define ECHO      input(PIN_C1)
+
+float distance,time;
+float measure_distance()
+{
+   output_high(TRIGGER);   //Bat Triger output_high(pin_b0)
+   delay_ms(50);
+   output_low(TRIGGER);    //Tat Triger output_low(pin_b0)
+   
+   while(ECHO==0) {}// Doi cho chan echo len muc cao input(PIN_B1)
+   //Su dung Timer1
+   setup_timer_1(T1_INTERNAL|T1_DIV_BY_8);
+   set_timer1(0);
+   while(ECHO==1) {}// Doi cho chan echo xuong muc thap
+   setup_timer_1(T1_DISABLED);//stop timer1
+   //Lay so xung song sieu am phan lai tu vat
+   time = get_timer1() * 1.6f;
+   //Thoi gian = so xung * 1.6 (da hoc cach tinh o VDK)
+   distance = (float)time/58.0f; 
+   //Khoang cach = thoi gian /58
+   return distance;
+}
+
+void distance_display()
+{
+   distance=measure_distance();
+   lcd_gotoxy(12,1);  printf(lcd_putc,"%.0fcm ",distance+1);
+}
+
+void main()
+{
+   lcd_init(); // Khoi tao LCD   
+   lcd_gotoxy(1,1);
+   lcd_putc("HELLO");
+
+   while(TRUE)
+   {
+      measure_distance();
+      distance_display();
+   }
+
+}

@@ -1,0 +1,27 @@
+#include <main.h>
+#include <lcd.c>
+
+#define LCD_RS_PIN       PIN_D0
+#define LCD_RW_PIN       PIN_D1
+#define LCD_ENABLE_PIN   PIN_D2
+
+#define LCD_DATA4        PIN_D3
+#define LCD_DATA5        PIN_D4
+#define LCD_DATA6        PIN_D5
+#define LCD_DATA7        PIN_D6 
+
+
+void main()
+{
+   lcd_putc("\f"); // Clear LCD
+   while(TRUE)
+   {
+      
+        lcd_gotoxy(1,1);
+        lcd_putc(223); // Print degree symbol (°)
+        lcd_putc("C ");
+
+      //TODO: User Code
+   }
+
+}
