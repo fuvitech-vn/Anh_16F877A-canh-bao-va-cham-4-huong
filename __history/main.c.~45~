@@ -1,5 +1,4 @@
 #include <main.h>
-#include <stdbool.h> 
 
 #define LCD_RS_PIN       PIN_E0
 #define LCD_RW_PIN       PIN_E1
@@ -12,24 +11,19 @@
 
 #define TRIGGER_1   PIN_C0
 #define ECHO_1      input(PIN_C1)
+
 #define TRIGGER_2   PIN_C2
 #define ECHO_2      input(PIN_C3)
+
 #define TRIGGER_3   PIN_C4
 #define ECHO_3      input(PIN_C5)
+
 #define TRIGGER_4   PIN_C6
 #define ECHO_4      input(PIN_C7)
 
-#define BUTTON_B0    input(PIN_B0)  
-#define BUTTON_B6    input(PIN_B6)  
-#define BUTTON_B7    input(PIN_B7)  
-
-float threshold = 50;
-bool lcd_mode = false;
-
-#define buzzer       PIN_D2
-
 float distance[4], time[4]; 
 
+// Hàm ðo kho?ng cách t? c?m bi?n siêu âm
 float measure_distance(int sensor)
 {
     switch(sensor) {
@@ -50,16 +44,17 @@ float measure_distance(int sensor)
     switch(sensor) 
     {
         case 1:
-            output_low(TRIGGER_1);   
+            output_low(TRIGGER_1);    // T?t Trigger c?a c?m bi?n 1
             break;
         case 2:
-            output_low(TRIGGER_2);   
+            output_low(TRIGGER_2);    // T?t Trigger c?a c?m bi?n 2
             break;
         case 3:
-            output_low(TRIGGER_3);    
+            output_low(TRIGGER_3);    // T?t Trigger c?a c?m bi?n 3
             break;
         case 4:
-            output_low(TRIGGER_4);    
+            output_low(TRIGGER_4);    // T?t Trigger c?a c?m bi?n 4
+            break;
     }
 
     switch(sensor) 
@@ -105,99 +100,38 @@ float measure_distance(int sensor)
     return distance[sensor - 1];
 }
 
+// Hàm hi?n th? kho?ng cách lên LCD
 void distance_display()
 {
     lcd_gotoxy(1, 1);
-    printf(lcd_putc, "D:%.0fcm   ", distance[0]);
+    printf(lcd_putc, "D:%.0fcm ", distance[0]);
     lcd_gotoxy(1, 2);
-    printf(lcd_putc, "T:%.0fcm   ", distance[1]);
+    printf(lcd_putc, "T:%.0fcm ", distance[1]);
     lcd_gotoxy(9, 1);
     printf(lcd_putc, "N:%.0fcm   ", distance[2]);
     lcd_gotoxy(9, 2);
     printf(lcd_putc, "B:%.0fcm   ", distance[3]);
 }
 
-void threshold_display()
-{
-    lcd_gotoxy(3, 1);
-    printf(lcd_putc, "Set Threshold");
-
-    lcd_gotoxy(1, 2);
-    printf(lcd_putc, "Threshold: %f", threshold);
-}
-
-void set_threshold()
-{
-    if (BUTTON_B6 == 0) 
-    {
-        while(BUTTON_B6 == 0)   {}
-        threshold += 10;
-    }
-    if (BUTTON_B7 == 0)  
-    {
-        while(BUTTON_B7 == 0)   {}
-        threshold -= 10;
-        if (threshold < 0) threshold = 0;  
-    }
-}
-
-void choose_mode()
-{
-    if (BUTTON_B0 == 0)  
-    {
-        while(BUTTON_B0 == 0)   
-        {}
-        lcd_mode = !lcd_mode;
-        lcd_putc("\f");
-    }
-}
-
 void main()
 {
-    lcd_init();  
+    lcd_init();  // Kh?i t?o LCD
     lcd_putc("\f");
     lcd_gotoxy(1, 1);
     lcd_putc("HELLO");
     delay_ms(1000);
     while(TRUE)
     {
-      choose_mode();
-      measure_distance(1);
-      measure_distance(2);
-      measure_distance(3);
-      measure_distance(4);
+        // Ðo kho?ng cách t? 4 c?m bi?n
+        measure_distance(1);
+        measure_distance(2);
+        measure_distance(3);
+        measure_distance(4);
 
-      bool alarm_triggered = false;
-      for (int i = 0; i < 4; i++) 
-      {
-            if (distance[i] > threshold) 
-            {
-                alarm_triggered = true; 
-                break; 
-            }
-        }
+        // Hi?n th? k?t qu? lên LCD
+        distance_display();
 
-        if (alarm_triggered) 
-        {
-            output_high(buzzer); 
-        } 
-        else 
-        {
-            output_low(buzzer);  
-        }
-
-     
-      if(lcd_mode == false)
-      {
-           distance_display();      
-      }
-      else
-      {
-           threshold_display();
-           set_threshold();
-      }
-
-        delay_ms(100);  
+        delay_ms(100);  // Th?i gian ch? gi?a các l?n ðo
     }
 }
 

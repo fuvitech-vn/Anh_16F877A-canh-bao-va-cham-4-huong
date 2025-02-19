@@ -50,16 +50,17 @@ float measure_distance(int sensor)
     switch(sensor) 
     {
         case 1:
-            output_low(TRIGGER_1);   
+            output_low(TRIGGER_1);    // T?t Trigger c?a c?m bi?n 1
             break;
         case 2:
-            output_low(TRIGGER_2);   
+            output_low(TRIGGER_2);    // T?t Trigger c?a c?m bi?n 2
             break;
         case 3:
-            output_low(TRIGGER_3);    
+            output_low(TRIGGER_3);    // T?t Trigger c?a c?m bi?n 3
             break;
         case 4:
-            output_low(TRIGGER_4);    
+            output_low(TRIGGER_4);    // T?t Trigger c?a c?m bi?n 4
+            break;
     }
 
     switch(sensor) 

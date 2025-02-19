@@ -26,8 +26,6 @@
 float threshold = 50;
 bool lcd_mode = false;
 
-#define buzzer       PIN_D2
-
 float distance[4], time[4]; 
 
 float measure_distance(int sensor)
@@ -50,16 +48,17 @@ float measure_distance(int sensor)
     switch(sensor) 
     {
         case 1:
-            output_low(TRIGGER_1);   
+            output_low(TRIGGER_1);    // T?t Trigger c?a c?m bi?n 1
             break;
         case 2:
-            output_low(TRIGGER_2);   
+            output_low(TRIGGER_2);    // T?t Trigger c?a c?m bi?n 2
             break;
         case 3:
-            output_low(TRIGGER_3);    
+            output_low(TRIGGER_3);    // T?t Trigger c?a c?m bi?n 3
             break;
         case 4:
-            output_low(TRIGGER_4);    
+            output_low(TRIGGER_4);    // T?t Trigger c?a c?m bi?n 4
+            break;
     }
 
     switch(sensor) 
@@ -162,33 +161,12 @@ void main()
     while(TRUE)
     {
       choose_mode();
-      measure_distance(1);
-      measure_distance(2);
-      measure_distance(3);
-      measure_distance(4);
-
-      bool alarm_triggered = false;
-      for (int i = 0; i < 4; i++) 
-      {
-            if (distance[i] > threshold) 
-            {
-                alarm_triggered = true; 
-                break; 
-            }
-        }
-
-        if (alarm_triggered) 
-        {
-            output_high(buzzer); 
-        } 
-        else 
-        {
-            output_low(buzzer);  
-        }
-
-     
       if(lcd_mode == false)
       {
+           measure_distance(1);
+           measure_distance(2);
+           measure_distance(3);
+           measure_distance(4);
            distance_display();      
       }
       else

@@ -1,9 +1,10 @@
-D G "__PCM__" 0 139 ""5.115""
-D G "__DEVICE__" 0 139 "877"
-D G "__DATE__" 0 139 ""19-Feb-25""
-D G "__TIME__" 0 139 ""14:16:14""
-D G "_UNICODE" 0 139 ""?""
-D G "__EVAL" 0 139 ""?"" "Standard Header file for the PIC16F877A device ////////////////"
+F N "MAIN" 0 156 ""
+D G "__PCM__" 0 205 ""5.115""
+D G "__DEVICE__" 0 205 "877"
+D G "__DATE__" 0 205 ""19-Feb-25""
+D G "__TIME__" 0 205 ""16:00:14""
+D G "_UNICODE" 0 205 ""?""
+D G "__EVAL" 0 205 ""?"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 F N "set_tris_a" 2 37 ""
 V L "value" 2 37 "int8" `55 
@@ -1166,108 +1167,124 @@ D G "INT_BUSCOL" 2 702 "0x008D08"
 D G "INT_EEPROM" 2 703 "0x008D10"
 D G "INT_TIMER0" 2 704 "0x000B20"
 D G "INT_COMP" 2 705 "0x008D40"
-D G "LCD_RS_PIN" 0 3 "PIN_E0"
-D G "LCD_RW_PIN" 0 4 "PIN_E1"
-D G "LCD_ENABLE_PIN" 0 5 "PIN_E2"
-D G "LCD_DATA4" 0 6 "PIN_D4"
-D G "LCD_DATA5" 0 7 "PIN_D5"
-D G "LCD_DATA6" 0 8 "PIN_D6"
-D G "LCD_DATA7" 0 9 "PIN_D7"
-D G "__LCD_C__" 3 76 ""
+D G "__STDBOOL_H__" 3 18 ""
 C L "jump_to_isr" 3 2 2 "FUNCTION"
-C L "jump_to_isr" 3 2 1 "FUNCTION"
-C L "jump_to_isr" 3 2 1 "FUNCTION"
-C L "jump_to_isr" 3 2 1 "FUNCTION"
-C L "jump_to_isr" 3 2 1 "FUNCTION"
-C L "jump_to_isr" 3 2 1 "FUNCTION"
-C L "jump_to_isr" 3 2 2 "FUNCTION"
-T G "LCD_PIN_MAP" 3 90 "{int1 enable,int1 rs,int1 rw,int1 unused,int4 data}" `706  "this is to improve compatability with previous LCD drivers that accepted"
-D G "lcd_output_enable" 3 112 "(x) output_bit(LCD_ENABLE_PIN, x)"
-D G "lcd_enable_tris" 3 113 "()  output_drive(LCD_ENABLE_PIN)"
-D G "lcd_output_rs" 3 120 "(x) output_bit(LCD_RS_PIN, x)"
-D G "lcd_rs_tris" 3 121 "()  output_drive(LCD_RS_PIN)"
-D G "lcd_output_rw" 3 128 "(x) output_bit(LCD_RW_PIN, x)"
-D G "lcd_rw_tris" 3 129 "()  output_drive(LCD_RW_PIN)"
-D G "LCD_TYPE" 3 179 "2" "0=5x7, 1=5x10, 2=2 lines"
-D G "LCD_LINE_TWO" 3 183 "0x40" "LCD RAM address for the second line"
-D G "LCD_LINE_LENGTH" 3 187 "20"
-F N "lcd_read_nibble" 3 190 ""
-f G "lcd_read_nibble" 3 190 "int8()" `707 
-F N "lcd_read_byte" 3 192 ""
-F G "lcd_read_byte" 3 193 "int8()" `708 
-V L "low" 3 194 "int8" `709 
-V L "high" 3 194 "int8" `710 
-F N "lcd_read_nibble" 3 239 ""
-F G "lcd_read_nibble" 3 240 "int8()" `707 
-V L "n" 3 242 "int8" `711 
-C L "lcd_read_nibble" 3 2 1 "FUNCTION"
-F N "lcd_send_nibble" 3 256 ""
-V L "n" 3 256 "int8" `713 
-F G "lcd_send_nibble" 3 257 "void(int8 n)" `712 
-C L "lcd_send_nibble" 3 2 1 "FUNCTION"
-F N "lcd_send_byte" 3 274 ""
-V L "address" 3 274 "int8" `715 
-V L "n" 3 274 "int8" `716 
-F G "lcd_send_byte" 3 275 "void(int8 address,int8 n)" `714 
-F N "lcd_init" 3 299 ""
-F G "lcd_init" 3 300 "void()" `717 
-V L "i" 3 301 "int8" `718 
-V L "LCD_INIT_STRING" 3 302 "int8[4]" `719 
-C L "lcd_init" 3 2 2 "FUNCTION"
-F N "lcd_gotoxy" 3 345 ""
-V L "x" 3 345 "int8" `721 
-V L "y" 3 345 "int8" `722 
-F G "lcd_gotoxy" 3 346 "void(int8 x,int8 y)" `720 
-V L "address" 3 347 "int8" `723 
-F N "lcd_putc" 3 363 ""
-V L "c" 3 363 "int8" `725 
-F G "lcd_putc" 3 364 "void(int8 c)" `724 
-F N "lcd_getc" 3 406 ""
-V L "x" 3 406 "int8" `727 
-V L "y" 3 406 "int8" `728 
-F G "lcd_getc" 3 407 "int8(int8 x,int8 y)" `726 
-V L "value" 3 408 "int8" `729 
-C L "lcd_getc" 3 2 1 "FUNCTION"
-C L "lcd_set_cgram_char" 3 2 5 "FUNCTION"
-F N "lcd_set_cgram_char" 3 424 ""
-V L "which" 3 424 "int8" `731 
-V L "ptr" 3 424 "*int8" `732 
-F G "lcd_set_cgram_char" 3 425 "void(int8 which,*int8 ptr)" `730 
-V L "i" 3 426 "int8" `733 
-C L "lcd_set_cgram_char" 3 2 1 "FUNCTION"
-F N "lcd_cursor_on" 3 443 ""
-V L "on" 3 443 "int8" `735 
-F G "lcd_cursor_on" 3 444 "void(int8 on)" `734 
-C L "lcd_cursor_on" 3 2 1 "FUNCTION"
-C L "lcd_cursor_on" 3 2 1 "FUNCTION"
-D G "TRIGGER_1" 0 12 "PIN_C0"
-D G "ECHO_1" 0 13 "input(PIN_C1)"
+T G "bool" 3 33 "int1" `700 
+D G "true" 3 34 "1"
+D G "false" 3 35 "0"
+D G "__bool_true_false_are_defined" 3 36 "1"
+D G "LCD_RS_PIN" 0 4 "PIN_E0"
+D G "LCD_RW_PIN" 0 5 "PIN_E1"
+D G "LCD_ENABLE_PIN" 0 6 "PIN_E2"
+D G "LCD_DATA4" 0 7 "PIN_D4"
+D G "LCD_DATA5" 0 8 "PIN_D5"
+D G "LCD_DATA6" 0 9 "PIN_D6"
+D G "LCD_DATA7" 0 10 "PIN_D7"
+D G "__LCD_C__" 4 76 ""
+C L "jump_to_isr" 4 2 2 "FUNCTION"
+C L "jump_to_isr" 4 2 1 "FUNCTION"
+C L "jump_to_isr" 4 2 1 "FUNCTION"
+C L "jump_to_isr" 4 2 1 "FUNCTION"
+C L "jump_to_isr" 4 2 1 "FUNCTION"
+C L "jump_to_isr" 4 2 1 "FUNCTION"
+C L "jump_to_isr" 4 2 2 "FUNCTION"
+T G "LCD_PIN_MAP" 4 90 "{int1 enable,int1 rs,int1 rw,int1 unused,int4 data}" `707  "this is to improve compatability with previous LCD drivers that accepted"
+D G "lcd_output_enable" 4 112 "(x) output_bit(LCD_ENABLE_PIN, x)"
+D G "lcd_enable_tris" 4 113 "()  output_drive(LCD_ENABLE_PIN)"
+D G "lcd_output_rs" 4 120 "(x) output_bit(LCD_RS_PIN, x)"
+D G "lcd_rs_tris" 4 121 "()  output_drive(LCD_RS_PIN)"
+D G "lcd_output_rw" 4 128 "(x) output_bit(LCD_RW_PIN, x)"
+D G "lcd_rw_tris" 4 129 "()  output_drive(LCD_RW_PIN)"
+D G "LCD_TYPE" 4 179 "2" "0=5x7, 1=5x10, 2=2 lines"
+D G "LCD_LINE_TWO" 4 183 "0x40" "LCD RAM address for the second line"
+D G "LCD_LINE_LENGTH" 4 187 "20"
+F N "lcd_read_nibble" 4 190 ""
+f G "lcd_read_nibble" 4 190 "int8()" `708 
+F N "lcd_read_byte" 4 192 ""
+F G "lcd_read_byte" 4 193 "int8()" `709 
+V L "low" 4 194 "int8" `710 
+V L "high" 4 194 "int8" `711 
+F N "lcd_read_nibble" 4 239 ""
+F G "lcd_read_nibble" 4 240 "int8()" `708 
+V L "n" 4 242 "int8" `712 
+C L "lcd_read_nibble" 4 2 1 "FUNCTION"
+F N "lcd_send_nibble" 4 256 ""
+V L "n" 4 256 "int8" `714 
+F G "lcd_send_nibble" 4 257 "void(int8 n)" `713 
+C L "lcd_send_nibble" 4 2 1 "FUNCTION"
+F N "lcd_send_byte" 4 274 ""
+V L "address" 4 274 "int8" `716 
+V L "n" 4 274 "int8" `717 
+F G "lcd_send_byte" 4 275 "void(int8 address,int8 n)" `715 
+F N "lcd_init" 4 299 ""
+F G "lcd_init" 4 300 "void()" `718 
+V L "i" 4 301 "int8" `719 
+V L "LCD_INIT_STRING" 4 302 "int8[4]" `720 
+C L "lcd_init" 4 2 2 "FUNCTION"
+F N "lcd_gotoxy" 4 345 ""
+V L "x" 4 345 "int8" `722 
+V L "y" 4 345 "int8" `723 
+F G "lcd_gotoxy" 4 346 "void(int8 x,int8 y)" `721 
+V L "address" 4 347 "int8" `724 
+F N "lcd_putc" 4 363 ""
+V L "c" 4 363 "int8" `726 
+F G "lcd_putc" 4 364 "void(int8 c)" `725 
+F N "lcd_getc" 4 406 ""
+V L "x" 4 406 "int8" `728 
+V L "y" 4 406 "int8" `729 
+F G "lcd_getc" 4 407 "int8(int8 x,int8 y)" `727 
+V L "value" 4 408 "int8" `730 
+C L "lcd_getc" 4 2 1 "FUNCTION"
+C L "lcd_set_cgram_char" 4 2 5 "FUNCTION"
+F N "lcd_set_cgram_char" 4 424 ""
+V L "which" 4 424 "int8" `732 
+V L "ptr" 4 424 "*int8" `733 
+F G "lcd_set_cgram_char" 4 425 "void(int8 which,*int8 ptr)" `731 
+V L "i" 4 426 "int8" `734 
+C L "lcd_set_cgram_char" 4 2 1 "FUNCTION"
+F N "lcd_cursor_on" 4 443 ""
+V L "on" 4 443 "int8" `736 
+F G "lcd_cursor_on" 4 444 "void(int8 on)" `735 
+C L "lcd_cursor_on" 4 2 1 "FUNCTION"
+C L "lcd_cursor_on" 4 2 1 "FUNCTION"
+D G "TRIGGER_1" 0 13 "PIN_C0"
+D G "ECHO_1" 0 14 "input(PIN_C1)"
 D G "TRIGGER_2" 0 15 "PIN_C2"
 D G "ECHO_2" 0 16 "input(PIN_C3)"
-D G "TRIGGER_3" 0 18 "PIN_C4"
-D G "ECHO_3" 0 19 "input(PIN_C5)"
-D G "TRIGGER_4" 0 21 "PIN_C6"
-D G "ECHO_4" 0 22 "input(PIN_C7)"
-V G "distance" 0 24 "float[4]" `736 
-V G "time" 0 24 "float[4]" `737  "Hàm ðo kho?ng cách t? c?m bi?n siêu âm"
-F N "measure_distance" 0 27 ""
-V L "sensor" 0 27 "int8" `739 
-F G "measure_distance" 0 28 "float(int8 sensor)" `738 
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "measure_distance" 0 34 1 "FUNCTION"
-C L "distance_display" 0 34 1 "FUNCTION"
-F N "distance_display" 0 104 ""
-F G "distance_display" 0 105 "void()" `753 
-F N "MAIN" 0 116 ""
-F G "MAIN" 0 117 "void()" `768 
-C L "MAIN" 0 34 1 "FUNCTION"
-C L "MAIN" 0 34 1 "FUNCTION"
-C L "MAIN" 0 34 1 "FUNCTION"
+D G "TRIGGER_3" 0 17 "PIN_C4"
+D G "ECHO_3" 0 18 "input(PIN_C5)"
+D G "TRIGGER_4" 0 19 "PIN_C6"
+D G "ECHO_4" 0 20 "input(PIN_C7)"
+D G "BUTTON_B0" 0 22 "input(PIN_B0)"
+D G "BUTTON_B6" 0 23 "input(PIN_B6)"
+D G "BUTTON_B7" 0 24 "input(PIN_B7)"
+V G "threshold" 0 26 "float" `737 
+V G "lcd_mode" 0 27 "bool" `738 
+D G "buzzer" 0 29 "PIN_D2"
+V G "distance" 0 31 "float[4]" `739 
+V G "time" 0 31 "float[4]" `740 
+F N "measure_distance" 0 33 ""
+V L "sensor" 0 33 "int8" `742 
+F G "measure_distance" 0 34 "float(int8 sensor)" `741 
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+C L "measure_distance" 0 40 1 "FUNCTION"
+F N "distance_display" 0 109 ""
+F G "distance_display" 0 110 "void()" `756 
+F N "threshold_display" 0 121 ""
+F G "threshold_display" 0 122 "void()" `771 
+F N "set_threshold" 0 130 ""
+F G "set_threshold" 0 131 "void()" `778 
+F N "choose_mode" 0 145 ""
+F G "choose_mode" 0 146 "void()" `785 
+F N "MAIN" 0 156 ""
+F G "MAIN" 0 157 "void()" `787 
+V L "alarm_triggered" 0 171 "bool" `792 
+V L "i" 0 172 "int8" `793 
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0

@@ -1,6 +1,6 @@
 #include <main.h>
-#include <stdbool.h> 
-
+#include <stdlib.h>
+#include <math.h>
 #define LCD_RS_PIN       PIN_E0
 #define LCD_RW_PIN       PIN_E1
 #define LCD_ENABLE_PIN   PIN_E2
@@ -24,9 +24,7 @@
 #define BUTTON_B7    input(PIN_B7)  
 
 float threshold = 50;
-bool lcd_mode = false;
-
-#define buzzer       PIN_D2
+bool 
 
 float distance[4], time[4]; 
 
@@ -50,16 +48,17 @@ float measure_distance(int sensor)
     switch(sensor) 
     {
         case 1:
-            output_low(TRIGGER_1);   
+            output_low(TRIGGER_1);    // T?t Trigger c?a c?m bi?n 1
             break;
         case 2:
-            output_low(TRIGGER_2);   
+            output_low(TRIGGER_2);    // T?t Trigger c?a c?m bi?n 2
             break;
         case 3:
-            output_low(TRIGGER_3);    
+            output_low(TRIGGER_3);    // T?t Trigger c?a c?m bi?n 3
             break;
         case 4:
-            output_low(TRIGGER_4);    
+            output_low(TRIGGER_4);    // T?t Trigger c?a c?m bi?n 4
+            break;
     }
 
     switch(sensor) 
@@ -108,9 +107,9 @@ float measure_distance(int sensor)
 void distance_display()
 {
     lcd_gotoxy(1, 1);
-    printf(lcd_putc, "D:%.0fcm   ", distance[0]);
+    printf(lcd_putc, "D:%.0fcm ", distance[0]);
     lcd_gotoxy(1, 2);
-    printf(lcd_putc, "T:%.0fcm   ", distance[1]);
+    printf(lcd_putc, "T:%.0fcm ", distance[1]);
     lcd_gotoxy(9, 1);
     printf(lcd_putc, "N:%.0fcm   ", distance[2]);
     lcd_gotoxy(9, 2);
@@ -135,20 +134,9 @@ void set_threshold()
     }
     if (BUTTON_B7 == 0)  
     {
-        while(BUTTON_B7 == 0)   {}
+        while(BUTTON_B6 == 0)   {}
         threshold -= 10;
         if (threshold < 0) threshold = 0;  
-    }
-}
-
-void choose_mode()
-{
-    if (BUTTON_B0 == 0)  
-    {
-        while(BUTTON_B0 == 0)   
-        {}
-        lcd_mode = !lcd_mode;
-        lcd_putc("\f");
     }
 }
 
@@ -161,41 +149,12 @@ void main()
     delay_ms(1000);
     while(TRUE)
     {
-      choose_mode();
-      measure_distance(1);
-      measure_distance(2);
-      measure_distance(3);
-      measure_distance(4);
-
-      bool alarm_triggered = false;
-      for (int i = 0; i < 4; i++) 
-      {
-            if (distance[i] > threshold) 
-            {
-                alarm_triggered = true; 
-                break; 
-            }
-        }
-
-        if (alarm_triggered) 
-        {
-            output_high(buzzer); 
-        } 
-        else 
-        {
-            output_low(buzzer);  
-        }
-
-     
-      if(lcd_mode == false)
-      {
-           distance_display();      
-      }
-      else
-      {
-           threshold_display();
-           set_threshold();
-      }
+        measure_distance(1);
+        measure_distance(2);
+        measure_distance(3);
+        measure_distance(4);
+        
+        distance_display();
 
         delay_ms(100);  
     }
